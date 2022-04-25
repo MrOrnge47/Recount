@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+
+namespace Group_Assignment_4
+{
+    class Recount
+    {
+        static void Main(string[] args)
+        {
+            //Establish variables and establish array to store vote information
+            string vote = "";
+            int highestvote = 0;
+            string winner = "";
+            IDictionary<string, int> candidatevotelist = new Dictionary<string, int>();
+
+            //Count up vote input until input ends
+            while (vote != "***")
+            {
+                vote = Console.ReadLine();
+                //Adds name to list if not already present, if they are already present +1 for votes
+                if (!candidatevotelist.ContainsKey(vote))
+                {
+                    candidatevotelist.Add(vote, 1);
+                }
+                else
+                {
+                    candidatevotelist[vote]++;
+                }
+            }
+
+            //Compares each candidate in array to the highest vote; if highest vote print that candidate as a winner, if two or more candidates = highestvote, then print "Runoff!"
+            foreach (string candidatename in candidatevotelist.Keys)
+            {
+                if (candidatevotelist[candidatename] > highestvote)
+                {
+                    winner = candidatename;
+                    highestvote = candidatevotelist[candidatename];
+                }
+                else if (candidatevotelist[candidatename] == highestvote)
+                {
+                    winner = "Runoff!";
+                }
+            }
+            Console.WriteLine(winner);
+
+        }
+    }
+}
